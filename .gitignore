@@ -1,4 +1,5 @@
 node_modules
 build
+notion.md
 .env
 .coverage

@@ -24,3 +24,8 @@ Find a friend app.
 - [ ] Endereço e número de Wpp são obrigatórios no cadastro da ORG
 - [ ] O usuário deve ser identificado por um JWT (Json Web Token)
 - [ ] As listagens devem seguir o padrão de 10 em 10 itens
+
+
+# Plus
+- [ ] Cadastrar cidade e estado no banco em tabelas separadas e vinculadas
+- [ ] Vincular com ORG
