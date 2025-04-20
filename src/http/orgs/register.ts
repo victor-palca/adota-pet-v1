@@ -1,9 +1,8 @@
-import { prisma } from "@/database/prisma";
-import { Org } from "@prisma/client";
-import { hash } from "bcryptjs";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { randomUUID } from "node:crypto";
 import { z } from "zod";
+import { PrismaOrgsRepository } from "@/repositories/prisma/prisma-orgs-repository";
+import { CreateOrgService } from "@/services/create-org";
+import { OrgAlreadyExistsError } from "@/services/erros/org-already-exists-error";
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const requestSchema = z.object({
@@ -17,46 +16,28 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     state: z.string(),
   })
   
-  const validateRequestBody = await requestSchema.safeParse(request.body);
-
-  if (validateRequestBody.success === false) {
-    return reply.status(400).send({ message: 'Validation error', issues:  validateRequestBody.error.format()})
-  }
-
-
-  const { name, email, password, cnpj, description, phone, city, state } = request.body as Org
+  const { name, email, password, cnpj, description, phone, city, state } = requestSchema.parse(request.body);
   
   try {
-    const orgAlreadyExists = await prisma.org.findFirst({
-      where: {
-        OR: [
-          { email },
-          { phone },
-          { cnpj },
-        ]
-      }
-    })
-
-    if (orgAlreadyExists) {
-      return reply.status(400).send({ message: 'Org Already Exists'})
-    }
-
-    await prisma.org.create({
-      data: {
-        id: randomUUID(),
-        password_hash: await hash(password, 6),
-        name,
-        email,
-        cnpj,
-        description,
-        phone,
-        city,
-        state
-      }
+    const prismaOrgRepository = new PrismaOrgsRepository()
+    const service = new CreateOrgService(prismaOrgRepository)
+    
+    await service.execute({
+      name,
+      email,
+      password,
+      cnpj,
+      description,
+      phone,
+      city,
+      state,
     })
     
     return reply.status(201).send()
   } catch (error) {
-    return reply.status(500).send({ message: 'Internal Server Error', issues:  error})
+    if (error instanceof OrgAlreadyExistsError) {
+      return reply.status(409).send({ message: `${error}`})
+    }
+    throw error
   }
 }
