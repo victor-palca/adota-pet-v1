@@ -19,7 +19,7 @@ model Org {
   email         String   @unique
   password_hash String
   cnpj          String   @unique
-  description   String
+  description   String?
   phone         String   @unique
   city          String
   state         String
@@ -36,10 +36,10 @@ enum AnimalSex {
 
 model Pet {
   id          String    @id @default(uuid())
-  name        String
-  age         Int
-  isFixed     Boolean
-  description String
+  name        String?
+  age         Int?
+  isFixed     Boolean   @default(false)
+  description String?
   animalSex   AnimalSex
   org         Org       @relation(fields: [org_id], references: [id])
   org_id      String

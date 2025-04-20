@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "orgs" ALTER COLUMN "description" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "users" ALTER COLUMN "name" DROP NOT NULL,
+ALTER COLUMN "age" DROP NOT NULL,
+ALTER COLUMN "isFixed" SET DEFAULT false,
+ALTER COLUMN "description" DROP NOT NULL;
