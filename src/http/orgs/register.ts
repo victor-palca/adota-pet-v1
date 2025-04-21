@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { PrismaOrgsRepository } from "@/repositories/prisma/prisma-orgs-repository";
-import { CreateOrgService } from "@/services/create-org";
+import { CreateOrgService } from "@/services/orgs/create-org";
 import { OrgAlreadyExistsError } from "@/services/erros/org-already-exists-error";
 
-export async function register(request: FastifyRequest, reply: FastifyReply) {
+export async function registerOrg(request: FastifyRequest, reply: FastifyReply) {
   const requestSchema = z.object({
     name: z.string(),
     email: z.string().email(),

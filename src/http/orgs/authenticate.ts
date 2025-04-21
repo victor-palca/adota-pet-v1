@@ -1,5 +1,5 @@
 import { PrismaOrgsRepository } from "@/repositories/prisma/prisma-orgs-repository";
-import { AuthenticateService } from "@/services/authenticate";
+import { AuthenticateService } from "@/services/orgs/authenticate";
 import { InvalidCredentialsError } from "@/services/erros/invalid-credentials";
 
 import { FastifyReply, FastifyRequest } from "fastify";
