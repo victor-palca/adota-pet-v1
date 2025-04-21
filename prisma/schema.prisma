@@ -13,6 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AnimalSex {
+  MACHO
+  FEMEA
+}
+
 model Org {
   id            String   @id @default(uuid())
   name          String
@@ -24,19 +29,19 @@ model Org {
   city          String
   state         String
   created_at    DateTime @default(now())
-  Pet           Pet[]
+  pet           Pet[]
 
   @@map("orgs")
 }
 
 model Pet {
-  id          String  @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String?
   age         Int?
-  isFixed     Boolean @default(false)
+  isFixed     Boolean   @default(false)
   description String?
-  animalSex   String
-  org         Org     @relation(fields: [org_id], references: [id])
+  animalSex   AnimalSex
+  org         Org       @relation(fields: [org_id], references: [id])
   org_id      String
 
   @@map("pets")

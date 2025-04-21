@@ -3,7 +3,7 @@
 Find a friend app.
 
 # RFs (Requisitos funcionais)
-- [ ] Deve ser possível se cadastrar um pet
+- [x] Deve ser possível se cadastrar um pet
 - [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
 - [ ] Deve ser possível filtrar pets por suas características
 - [ ] Deve ser possível visualizar detalhes de um pet para adoção
@@ -22,7 +22,7 @@ Find a friend app.
 - [x] A senha do usuario precisa estar criptografada
 - [x] O CNPJ e o Email da org são únicos
 - [x] Endereço e número de Wpp são obrigatórios no cadastro da ORG
-- [ ] O usuário deve ser identificado por um JWT (Json Web Token)
+- [x] O usuário deve ser identificado por um JWT (Json Web Token)
 - [ ] As listagens devem seguir o padrão de 10 em 10 itens
 
 
