@@ -26,6 +26,7 @@ export class CreatePet {
     animalSex,
     orgId,
   }: CreatePetServiceRequest ): Promise<CreatePetServiceResponse> {
+
     const pet = await this.petsRepository.create({
       name,
       age,

@@ -29,20 +29,15 @@ model Org {
   @@map("orgs")
 }
 
-enum AnimalSex {
-  MACHO
-  FEMEA
-}
-
 model Pet {
-  id          String    @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String?
   age         Int?
-  isFixed     Boolean   @default(false)
+  isFixed     Boolean @default(false)
   description String?
-  animalSex   AnimalSex
-  org         Org       @relation(fields: [org_id], references: [id])
+  animalSex   String
+  org         Org     @relation(fields: [org_id], references: [id])
   org_id      String
 
-  @@map("users")
+  @@map("pets")
 }

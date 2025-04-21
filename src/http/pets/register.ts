@@ -7,8 +7,8 @@ import { z } from "zod";
 export async function registerPet(request: FastifyRequest, reply: FastifyReply) {
   const petSchema = z.object({
     name: z.string(),
-    age: z.number().default(0),
-    isFixed: z.boolean().default(false),
+    age: z.coerce.number().int().default(0),
+    isFixed: z.coerce.boolean().default(false),
     description: z.string().nullable(),
     animalSex: z.nativeEnum(AnimalSex)
   })
@@ -19,14 +19,18 @@ export async function registerPet(request: FastifyRequest, reply: FastifyReply) 
   const prismaPetRepository = new PrismaPetRepository()
   const registerPetService = new CreatePet(prismaPetRepository)
 
-  await registerPetService.execute({
-    name,
-    age,
-    isFixed,
-    description: description ?? undefined,
-    animalSex,
-    orgId,
-   })
-
-   return reply.status(201)
+  try {
+    await registerPetService.execute({
+      name,
+      age,
+      isFixed,
+      description: description ?? undefined,
+      animalSex,
+      orgId,
+     })
+  
+     return reply.status(201).send()
+  } catch (error) {
+    return reply.status(500).send({ message: `${error}` })
+  }
 }
