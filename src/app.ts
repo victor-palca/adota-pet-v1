@@ -15,8 +15,8 @@ app.register(fastifyJwt, {
     signed: false,
   },
   sign: {
-    expiresIn: '10m'
-  }
+    expiresIn: '10m',
+  },
 })
 
 app.register(fastifyCookie)
@@ -25,7 +25,9 @@ app.register(routePet)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
-    return reply.status(400).send({ message: 'Validation Error', issues: error.format() })
+    return reply
+      .status(400)
+      .send({ message: 'Validation Error', issues: error.format() })
   }
 
   if (env.NODE_ENV !== 'production') {

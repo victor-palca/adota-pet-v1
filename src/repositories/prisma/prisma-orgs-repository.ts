@@ -1,13 +1,13 @@
-import { Prisma, Org } from "@prisma/client";
-import { OrgsRepository } from "../orgs-repository";
-import { prisma } from "@/database/prisma";
+import { Prisma, Org } from '@prisma/client'
+import { OrgsRepository } from '../orgs-repository'
+import { prisma } from '@/database/prisma'
 
 export class PrismaOrgsRepository implements OrgsRepository {
   async findByEmail(email: string) {
     const org = await prisma.org.findFirst({
       where: {
-        email 
-      }
+        email,
+      },
     })
 
     return org
@@ -15,12 +15,8 @@ export class PrismaOrgsRepository implements OrgsRepository {
   async findOrgByUniques(email: string, phone: string, cnpj: string) {
     const org = await prisma.org.findFirst({
       where: {
-        OR: [
-          { email },
-          { phone },
-          { cnpj },
-        ]
-      }
+        OR: [{ email }, { phone }, { cnpj }],
+      },
     })
 
     return org

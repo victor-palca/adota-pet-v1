@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply, FastifyRequest } from 'fastify'
 
 export async function refresh(request: FastifyRequest, reply: FastifyReply) {
   await request.jwtVerify({ onlyCookie: true })
@@ -6,18 +6,18 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
   const token = await reply.jwtSign(
     {},
     {
-      sign: { sub: request.user.sub }
-    }
+      sign: { sub: request.user.sub },
+    },
   )
 
   const newRefreshToken = await reply.jwtSign(
     {},
     {
-      sign: { 
+      sign: {
         sub: request.user.sub,
-        expiresIn: '5d', 
-      },      
-    }
+        expiresIn: '5d',
+      },
+    },
   )
 
   return reply
@@ -26,7 +26,7 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
       path: '/',
       secure: true,
       sameSite: true,
-      httpOnly: true
+      httpOnly: true,
     })
     .send({ token })
 }

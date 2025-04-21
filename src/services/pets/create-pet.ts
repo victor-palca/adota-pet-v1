@@ -1,13 +1,13 @@
-import { AnimalSex } from "@/@types/animal-sex";
-import { PetsRepository } from "@/repositories/pets-repository";
-import { Pet } from "@prisma/client";
+import { AnimalSex } from '@/@types/animal-sex'
+import { PetsRepository } from '@/repositories/pets-repository'
+import { Pet } from '@prisma/client'
 
 interface CreatePetServiceRequest {
-  name: string,
-  age?: number,
-  isFixed: boolean,
-  description?: string,
-  animalSex: AnimalSex,
+  name: string
+  age?: number
+  isFixed: boolean
+  description?: string
+  animalSex: AnimalSex
   orgId: string
 }
 
@@ -25,19 +25,18 @@ export class CreatePet {
     description,
     animalSex,
     orgId,
-  }: CreatePetServiceRequest ): Promise<CreatePetServiceResponse> {
-
+  }: CreatePetServiceRequest): Promise<CreatePetServiceResponse> {
     const pet = await this.petsRepository.create({
       name,
       age,
       isFixed,
       description,
       animalSex,
-      org_id: orgId
+      org_id: orgId,
     })
 
     return {
-      pet
+      pet,
     }
   }
 }

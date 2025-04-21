@@ -1,12 +1,12 @@
-import { Pet, Prisma } from "@prisma/client";
-import { PetsRepository } from "../pets-repository";
-import { prisma } from "@/database/prisma";
+import { Pet, Prisma } from '@prisma/client'
+import { PetsRepository } from '../pets-repository'
+import { prisma } from '@/database/prisma'
 
 export class PrismaPetRepository implements PetsRepository {
   async getPetById(id: string) {
     const pet = await prisma.pet.findUnique({
       where: {
-        id
+        id,
       },
       include: {
         org: {
@@ -15,9 +15,9 @@ export class PrismaPetRepository implements PetsRepository {
             name: true,
             city: true,
             state: true,
-          }
-        }
-      }
+          },
+        },
+      },
     })
 
     return pet
@@ -25,9 +25,9 @@ export class PrismaPetRepository implements PetsRepository {
 
   async create(data: Prisma.PetUncheckedCreateInput) {
     const pet = await prisma.pet.create({
-      data
+      data,
     })
-    
+
     return pet
   }
 }
