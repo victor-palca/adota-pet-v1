@@ -1,13 +1,9 @@
+import { AnimalSex } from "@/@types/animal-sex";
 import { PetsRepository } from "@/repositories/pets-repository";
 import { Pet } from "@prisma/client";
 
-enum AnimalSex {
-  MACHO = 'MACHO',
-  FEMEA = 'FEMEA'
-}
-
 interface CreatePetServiceRequest {
-  name?: string,
+  name: string,
   age?: number,
   isFixed: boolean,
   description?: string,
