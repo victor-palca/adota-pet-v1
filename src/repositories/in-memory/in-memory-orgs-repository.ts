@@ -33,7 +33,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     )
 
     if (!org) {
-      throw new OrgAlreadyExistsError()
+      return null
     }
 
     return org
@@ -42,7 +42,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     const org = this.orgs.find((item) => item.email === email)
 
     if (!org) {
-      throw new ResourceNotFoundError()
+      return null
     }
 
     return org
