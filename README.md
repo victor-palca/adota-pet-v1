@@ -23,4 +23,4 @@ Find a friend app.
 - [x] O CNPJ e o Email da org são únicos
 - [x] Endereço e número de Wpp são obrigatórios no cadastro da ORG
 - [x] O usuário deve ser identificado por um JWT (Json Web Token)
-- [ ] As listagens devem seguir o padrão de 10 em 10 itens
+- [x] As listagens devem seguir o padrão de 10 em 10 itens
