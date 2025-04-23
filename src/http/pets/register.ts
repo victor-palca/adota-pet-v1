@@ -1,6 +1,6 @@
 import { AnimalSex } from '@/@types/animal-sex'
 import { PrismaPetRepository } from '@/repositories/prisma/prisma-pets-repository'
-import { CreatePet } from '@/services/pets/create-pet'
+import { CreatePetService } from '@/services/pets/create-pet'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -22,7 +22,7 @@ export async function registerPet(
   const orgId = request.user.sub
 
   const prismaPetRepository = new PrismaPetRepository()
-  const registerPetService = new CreatePet(prismaPetRepository)
+  const registerPetService = new CreatePetService(prismaPetRepository)
 
   try {
     await registerPetService.execute({
