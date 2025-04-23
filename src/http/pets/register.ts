@@ -1,4 +1,5 @@
 import { AnimalSex } from '@/@types/animal-sex'
+import { AnimalType } from '@/@types/animal-type'
 import { PrismaPetRepository } from '@/repositories/prisma/prisma-pets-repository'
 import { CreatePetService } from '@/services/pets/create-pet'
 import { FastifyReply, FastifyRequest } from 'fastify'
@@ -14,11 +15,11 @@ export async function registerPet(
     isFixed: z.coerce.boolean().default(false),
     description: z.string().nullable(),
     animalSex: z.nativeEnum(AnimalSex),
+    type: z.nativeEnum(AnimalType),
   })
 
-  const { name, age, isFixed, description, animalSex } = await petSchema.parse(
-    request.body,
-  )
+  const { name, age, isFixed, description, animalSex, type } =
+    await petSchema.parse(request.body)
   const orgId = request.user.sub
 
   const prismaPetRepository = new PrismaPetRepository()
@@ -26,6 +27,7 @@ export async function registerPet(
 
   try {
     await registerPetService.execute({
+      type,
       name,
       age,
       isFixed,
