@@ -5,6 +5,7 @@ import { Pet } from '@prisma/client'
 
 interface GetPetByFilterServiceRequest {
   city: string
+  page: number
   age?: number
   animalSex?: AnimalSex
   type?: AnimalType
@@ -20,6 +21,7 @@ export class GetPetByFilterService {
 
   async execute({
     city,
+    page,
     age,
     animalSex,
     type,
@@ -27,6 +29,7 @@ export class GetPetByFilterService {
   }: GetPetByFilterServiceRequest): Promise<GetPetByFilterServiceResponse> {
     const pets = await this.petsRepository.listPetsByFilters(
       city,
+      page,
       age,
       animalSex,
       type,

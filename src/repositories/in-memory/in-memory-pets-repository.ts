@@ -12,6 +12,7 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async listPetsByFilters(
     city: string,
+    page: number,
     age?: number,
     animalSex?: AnimalSex,
     type?: AnimalType,
@@ -35,7 +36,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pets
   }
 
-  async listPetsByCity(city: string) {
+  async listPetsByCity(city: string, page: number) {
     const orgs = this.orgsRepo.orgs.filter((item) => {
       return item.city === city
     })

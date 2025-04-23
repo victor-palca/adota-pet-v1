@@ -11,13 +11,14 @@ export async function GetPetByFilter(
 ) {
   const queryParams = z.object({
     city: z.string(),
+    page: z.coerce.number(),
     age: z.coerce.number().optional(),
     animalSex: z.nativeEnum(AnimalSex).optional(),
     type: z.nativeEnum(AnimalType).optional(),
     isFixed: z.coerce.boolean().optional(),
   })
 
-  const { city, age, animalSex, type, isFixed } = queryParams.parse(
+  const { city, page, age, animalSex, type, isFixed } = queryParams.parse(
     request.query,
   )
 
@@ -29,6 +30,7 @@ export async function GetPetByFilter(
 
     const { pets } = await getPetByFiltersService.execute({
       city,
+      page,
       age,
       animalSex,
       type,

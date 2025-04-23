@@ -1,4 +1,4 @@
-import { Pet, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
 import { prisma } from '@/database/prisma'
 import { AnimalSex } from '@/@types/animal-sex'
@@ -7,6 +7,7 @@ import { AnimalType } from '@/@types/animal-type'
 export class PrismaPetRepository implements PetsRepository {
   async listPetsByFilters(
     city: string,
+    page: number,
     age?: number,
     animalSex?: AnimalSex,
     type?: AnimalType,
@@ -22,17 +23,21 @@ export class PrismaPetRepository implements PetsRepository {
         ...(type !== undefined && { type }),
         ...(isFixed !== undefined && { isFixed }),
       },
+      take: 10,
+      skip: (page - 1) * 10,
     })
 
     return pets
   }
-  async listPetsByCity(city: string) {
+  async listPetsByCity(city: string, page: number) {
     const pets = await prisma.pet.findMany({
       where: {
         org: {
           city,
         },
       },
+      take: 10,
+      skip: (page - 1) * 10,
     })
 
     return pets

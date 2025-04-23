@@ -5,9 +5,10 @@ import { Pet, Prisma } from '@prisma/client'
 export interface PetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
   getPetById(id: string): Promise<Pet | null>
-  listPetsByCity(city: string): Promise<Pet[]>
+  listPetsByCity(city: string, page: number): Promise<Pet[]>
   listPetsByFilters(
     city: string,
+    page: number,
     age?: number,
     animalSex?: AnimalSex,
     type?: AnimalType,
