@@ -12,6 +12,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     const orgs = this.orgsRepo.orgs.filter((item) => {
       return item.city === city
     })
+
     const orgsId = orgs.map((org) => org.id)
     const pets = this.pets.filter((pet) => orgsId.includes(pet.org_id))
 
