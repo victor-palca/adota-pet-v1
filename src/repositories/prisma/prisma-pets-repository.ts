@@ -3,6 +3,18 @@ import { PetsRepository } from '../pets-repository'
 import { prisma } from '@/database/prisma'
 
 export class PrismaPetRepository implements PetsRepository {
+  async listPetsByCity(city: string) {
+    const pets = await prisma.pet.findMany({
+      where: {
+        org: {
+          city,
+        },
+      },
+    })
+
+    return pets
+  }
+
   async getPetById(id: string) {
     const pet = await prisma.pet.findUnique({
       where: {

@@ -2,9 +2,22 @@ import { Prisma, Pet } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
 import { randomUUID } from 'node:crypto'
 import { ResourceNotFoundError } from '@/services/erros/resource-not-found'
+import { InMemoryOrgsRepository } from './in-memory-orgs-repository'
 
 export class InMemoryPetsRepository implements PetsRepository {
+  constructor(private orgsRepo: InMemoryOrgsRepository) {}
   public pets: Pet[] = []
+
+  async listPetsByCity(city: string) {
+    const orgs = this.orgsRepo.orgs.filter((item) => {
+      return item.city === city
+    })
+    const orgsId = orgs.map((org) => org.id)
+    const pets = this.pets.filter((pet) => orgsId.includes(pet.org_id))
+
+    return pets
+  }
+
   async create(data: Prisma.PetUncheckedCreateInput) {
     const pet = {
       id: randomUUID(),

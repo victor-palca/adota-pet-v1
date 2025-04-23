@@ -1,14 +1,17 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
+import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { CreatePetService } from './create-pet'
 import { AnimalSex } from '@/@types/animal-sex'
 import { AnimalType } from '@prisma/client'
 
 let petsRepository: InMemoryPetsRepository
+let orgsRepository: InMemoryOrgsRepository
 let sut: CreatePetService
 describe('Create Pet', () => {
   beforeEach(() => {
-    petsRepository = new InMemoryPetsRepository()
+    orgsRepository = new InMemoryOrgsRepository()
+    petsRepository = new InMemoryPetsRepository(orgsRepository)
     sut = new CreatePetService(petsRepository)
   })
 

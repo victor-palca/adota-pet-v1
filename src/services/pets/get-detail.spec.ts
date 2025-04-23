@@ -1,19 +1,24 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
+import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { AnimalSex } from '@/@types/animal-sex'
 import { GetDetailService } from './get-detail'
 import { ResourceNotFoundError } from '../erros/resource-not-found'
+import { AnimalType } from '@/@types/animal-type'
 
 let petsRepository: InMemoryPetsRepository
+let orgsRepository: InMemoryOrgsRepository
 let sut: GetDetailService
 describe('Get Detail Pet', () => {
   beforeEach(async () => {
-    petsRepository = new InMemoryPetsRepository()
+    orgsRepository = new InMemoryOrgsRepository()
+    petsRepository = new InMemoryPetsRepository(orgsRepository)
     sut = new GetDetailService(petsRepository)
   })
 
   it('Should be able to find pet by id', async () => {
     const newPet = await petsRepository.create({
+      type: AnimalType.CACHORRO,
       name: 'Pet 1',
       age: 1,
       isFixed: false,
@@ -30,7 +35,8 @@ describe('Get Detail Pet', () => {
   })
 
   it('Should be able to not find a pet by id with wrong id', async () => {
-    const newPet = await petsRepository.create({
+    await petsRepository.create({
+      type: AnimalType.CACHORRO,
       name: 'Pet 1',
       age: 1,
       isFixed: false,
