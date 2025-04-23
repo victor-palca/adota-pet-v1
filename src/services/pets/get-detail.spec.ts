@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { AnimalSex } from '@/@types/animal-sex'
-import { GetDetailService } from './get-detail-service'
+import { GetDetailService } from './get-detail'
 import { ResourceNotFoundError } from '../erros/resource-not-found'
 
 let petsRepository: InMemoryPetsRepository

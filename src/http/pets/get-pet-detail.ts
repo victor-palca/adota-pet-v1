@@ -1,6 +1,6 @@
 import { PrismaPetRepository } from '@/repositories/prisma/prisma-pets-repository'
 import { ResourceNotFoundError } from '@/services/erros/resource-not-found'
-import { GetDetailService } from '@/services/pets/get-detail-service'
+import { GetDetailService } from '@/services/pets/get-detail'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
