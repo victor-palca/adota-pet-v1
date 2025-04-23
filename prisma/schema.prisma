@@ -18,6 +18,11 @@ enum AnimalSex {
   FEMEA
 }
 
+enum AnimalType {
+  CACHORRO
+  GATO
+}
+
 model Org {
   id            String   @id @default(uuid())
   name          String
@@ -35,14 +40,16 @@ model Org {
 }
 
 model Pet {
-  id          String    @id @default(uuid())
+  id          String     @id @default(uuid())
+  type        AnimalType
   name        String?
   age         Int?
-  isFixed     Boolean   @default(false)
+  isFixed     Boolean    @default(false)
   description String?
   animalSex   AnimalSex
-  org         Org       @relation(fields: [org_id], references: [id])
+  org         Org        @relation(fields: [org_id], references: [id])
   org_id      String
+  created_at  DateTime   @default(now())
 
   @@map("pets")
 }

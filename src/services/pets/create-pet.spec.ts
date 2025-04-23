@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { CreatePetService } from './create-pet'
 import { AnimalSex } from '@/@types/animal-sex'
+import { AnimalType } from '@prisma/client'
 
 let petsRepository: InMemoryPetsRepository
 let sut: CreatePetService
@@ -14,6 +14,7 @@ describe('Create Pet', () => {
 
   it('Should be able to create a org', async () => {
     const { pet } = await sut.execute({
+      type: AnimalType.CACHORRO,
       name: 'Pet 1',
       age: 1,
       isFixed: false,
