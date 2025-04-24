@@ -2,8 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { CreatePetService } from './create-pet'
-import { AnimalSex } from '@/@types/animal-sex'
-import { AnimalType } from '@prisma/client'
+import { AnimalType, GenderType } from '@prisma/client'
 
 let petsRepository: InMemoryPetsRepository
 let orgsRepository: InMemoryOrgsRepository
@@ -22,7 +21,7 @@ describe('Create Pet', () => {
       age: 1,
       isFixed: false,
       description: '',
-      animalSex: AnimalSex.MACHO,
+      gender: GenderType.MACHO,
       orgId: 'org1',
     })
 

@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AnimalSex {
+enum GenderType {
   MACHO
   FEMEA
 }
@@ -46,7 +46,7 @@ model Pet {
   age         Int?
   isFixed     Boolean    @default(false)
   description String?
-  animalSex   AnimalSex
+  gender      GenderType
   org         Org        @relation(fields: [org_id], references: [id])
   org_id      String
   created_at  DateTime   @default(now())

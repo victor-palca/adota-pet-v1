@@ -1,30 +1,33 @@
-import { PrismaOrgsRepository } from "@/repositories/prisma/prisma-orgs-repository";
-import { AuthenticateService } from "@/services/orgs/authenticate";
-import { InvalidCredentialsError } from "@/services/erros/invalid-credentials";
-import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
+import { PrismaOrgsRepository } from '@/repositories/prisma/prisma-orgs-repository'
+import { AuthenticateService } from '@/services/orgs/authenticate'
+import { InvalidCredentialsError } from '@/services/erros/invalid-credentials'
+import { FastifyReply, FastifyRequest } from 'fastify'
+import { z } from 'zod'
 
-export async function authenticate(request: FastifyRequest, reply: FastifyReply) {
+export async function authenticate(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const bodySchema = z.object({
     email: z.string().email(),
-    password: z.string().min(6)
+    password: z.string().min(6),
   })
 
-  const {email, password} = bodySchema.parse(request.body)
+  const { email, password } = bodySchema.parse(request.body)
 
   try {
-    const prismaOrgRepository = new PrismaOrgsRepository() 
+    const prismaOrgRepository = new PrismaOrgsRepository()
     const authenticateService = new AuthenticateService(prismaOrgRepository)
 
-    const { org } = await authenticateService.execute({email, password})
+    const { org } = await authenticateService.execute({ email, password })
 
     const token = await reply.jwtSign(
       {},
       {
         sign: {
-          sub: org.id
-        }
-      }
+          sub: org.id,
+        },
+      },
     )
 
     const refreshToken = await reply.jwtSign(
@@ -32,12 +35,10 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
       {
         sign: {
           sub: org.id,
-          expiresIn: '5d'
-        }
-      }
+          expiresIn: '5d',
+        },
+      },
     )
-
-    
 
     return reply
       .status(200)
@@ -52,7 +53,7 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
       })
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
-      return reply.status(400).send({message: `${error}`})
+      return reply.status(400).send({ message: `${error}` })
     }
   }
 }

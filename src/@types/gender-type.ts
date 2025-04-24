@@ -1,4 +1,4 @@
-export enum AnimalSex {
+export enum GenderType {
   MACHO = 'MACHO',
   FEMEA = 'FEMEA',
 }

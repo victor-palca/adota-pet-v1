@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
-import { OrgAlreadyExistsError } from '../erros/org-already-exists-error'
 import { AuthenticateService } from './authenticate'
 import { hash } from 'bcryptjs'
 import { InvalidCredentialsError } from '../erros/invalid-credentials'

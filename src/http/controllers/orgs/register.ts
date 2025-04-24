@@ -40,8 +40,9 @@ export async function registerOrg(
     return reply.status(201).send()
   } catch (error) {
     if (error instanceof OrgAlreadyExistsError) {
-      return reply.status(409).send({ message: `${error}` })
+      return reply.status(409).send({ message: error.message })
     }
+
     throw error
   }
 }

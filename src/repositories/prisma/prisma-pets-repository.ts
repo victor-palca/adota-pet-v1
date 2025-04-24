@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
 import { prisma } from '@/database/prisma'
-import { AnimalSex } from '@/@types/animal-sex'
+import { AnimalSex } from '@/@types/gender-type'
 import { AnimalType } from '@/@types/animal-type'
 
 export class PrismaPetRepository implements PetsRepository {

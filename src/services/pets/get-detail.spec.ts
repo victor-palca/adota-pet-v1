@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
-import { AnimalSex } from '@/@types/animal-sex'
 import { GetDetailService } from './get-detail'
 import { ResourceNotFoundError } from '../erros/resource-not-found'
 import { AnimalType } from '@/@types/animal-type'
+import { GenderType } from '@prisma/client'
 
 let petsRepository: InMemoryPetsRepository
 let orgsRepository: InMemoryOrgsRepository
@@ -23,7 +23,7 @@ describe('Get Detail Pet', () => {
       age: 1,
       isFixed: false,
       description: '',
-      animalSex: AnimalSex.MACHO,
+      gender: GenderType.MACHO,
       org_id: 'org1',
     })
 
@@ -41,7 +41,7 @@ describe('Get Detail Pet', () => {
       age: 1,
       isFixed: false,
       description: '',
-      animalSex: AnimalSex.MACHO,
+      gender: GenderType.MACHO,
       org_id: 'org1',
     })
 

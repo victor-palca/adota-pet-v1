@@ -1,8 +1,6 @@
 import { Prisma, Org } from '@prisma/client'
 import { OrgsRepository } from '../orgs-repository'
 import { randomUUID } from 'node:crypto'
-import { OrgAlreadyExistsError } from '@/services/erros/org-already-exists-error'
-import { ResourceNotFoundError } from '@/services/erros/resource-not-found'
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   public orgs: Org[] = []

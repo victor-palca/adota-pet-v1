@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { Org } from '@prisma/client'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
-import { AnimalSex } from '@/@types/animal-sex'
 import { AnimalType } from '@/@types/animal-type'
 import { GetPetByFilterService } from './get-pet-by-filter'
 import { afterEach } from 'node:test'
+import { GenderType } from '@/@types/gender-type'
 
 let petsRepository: InMemoryPetsRepository
 let orgsRepository: InMemoryOrgsRepository
@@ -54,7 +54,7 @@ describe('Get Pet By Filters', () => {
         age: 1,
         isFixed: false,
         description: '',
-        animalSex: AnimalSex.MACHO,
+        gender: GenderType.MACHO,
         org_id: orgTaubate.id,
       })
     }
@@ -66,13 +66,14 @@ describe('Get Pet By Filters', () => {
         age: 1,
         isFixed: false,
         description: '',
-        animalSex: AnimalSex.MACHO,
+        gender: GenderType.MACHO,
         org_id: orgSjc.id,
       })
     }
 
     const { pets } = await sut.execute({
       city: 'Sao Jose dos Campos',
+      page: 1,
     })
 
     expect(pets).toHaveLength(5)
@@ -91,7 +92,7 @@ describe('Get Pet By Filters', () => {
         age: 1,
         isFixed: false,
         description: '',
-        animalSex: i % 2 ? AnimalSex.MACHO : AnimalSex.FEMEA,
+        gender: i % 2 ? GenderType.MACHO : GenderType.FEMEA,
         org_id: orgSjc.id,
       })
     }
@@ -99,6 +100,7 @@ describe('Get Pet By Filters', () => {
     const { pets } = await sut.execute({
       city: 'Sao Jose dos Campos',
       type: AnimalType.GATO,
+      page: 1,
     })
 
     expect(pets).toHaveLength(3)
@@ -112,7 +114,7 @@ describe('Get Pet By Filters', () => {
         age: 5,
         isFixed: i % 3 ? true : false,
         description: '',
-        animalSex: i % 2 ? AnimalSex.MACHO : AnimalSex.FEMEA,
+        gender: i % 2 ? GenderType.MACHO : GenderType.FEMEA,
         org_id: orgSjc.id,
       })
     }
@@ -121,6 +123,7 @@ describe('Get Pet By Filters', () => {
       city: 'Sao Jose dos Campos',
       type: AnimalType.GATO,
       age: 5,
+      page: 1,
     })
 
     expect(pets).toHaveLength(3)
@@ -134,7 +137,7 @@ describe('Get Pet By Filters', () => {
         age: 5,
         isFixed: i % 3 ? true : false,
         description: '',
-        animalSex: i % 2 ? AnimalSex.MACHO : AnimalSex.FEMEA,
+        gender: i % 2 ? GenderType.MACHO : GenderType.FEMEA,
         org_id: orgSjc.id,
       })
     }
@@ -142,6 +145,7 @@ describe('Get Pet By Filters', () => {
     const { pets } = await sut.execute({
       city: 'Sao Jose dos Campos',
       isFixed: true,
+      page: 1,
     })
 
     expect(pets).toHaveLength(4)

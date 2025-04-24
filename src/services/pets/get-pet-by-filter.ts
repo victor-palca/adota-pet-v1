@@ -1,13 +1,12 @@
-import { AnimalSex } from '@/@types/animal-sex'
 import { AnimalType } from '@/@types/animal-type'
 import { PetsRepository } from '@/repositories/pets-repository'
-import { Pet } from '@prisma/client'
+import { GenderType, Pet } from '@prisma/client'
 
 interface GetPetByFilterServiceRequest {
   city: string
   page: number
   age?: number
-  animalSex?: AnimalSex
+  gender?: GenderType
   type?: AnimalType
   isFixed?: boolean
 }
@@ -23,7 +22,7 @@ export class GetPetByFilterService {
     city,
     page,
     age,
-    animalSex,
+    gender,
     type,
     isFixed,
   }: GetPetByFilterServiceRequest): Promise<GetPetByFilterServiceResponse> {
@@ -31,7 +30,7 @@ export class GetPetByFilterService {
       city,
       page,
       age,
-      animalSex,
+      gender,
       type,
       isFixed,
     )

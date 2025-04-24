@@ -1,6 +1,5 @@
-import { AnimalSex } from '@/@types/animal-sex'
 import { PetsRepository } from '@/repositories/pets-repository'
-import { AnimalType, Pet } from '@prisma/client'
+import { AnimalType, GenderType, Pet } from '@prisma/client'
 
 interface CreatePetServiceRequest {
   type: AnimalType
@@ -8,7 +7,7 @@ interface CreatePetServiceRequest {
   age?: number
   isFixed: boolean
   description?: string
-  animalSex: AnimalSex
+  gender: GenderType
   orgId: string
 }
 
@@ -25,7 +24,7 @@ export class CreatePetService {
     age,
     isFixed,
     description,
-    animalSex,
+    gender,
     orgId,
   }: CreatePetServiceRequest): Promise<CreatePetServiceResponse> {
     const pet = await this.petsRepository.create({
@@ -34,7 +33,7 @@ export class CreatePetService {
       age,
       isFixed,
       description,
-      animalSex,
+      gender,
       org_id: orgId,
     })
 

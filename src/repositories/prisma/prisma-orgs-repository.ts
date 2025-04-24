@@ -1,4 +1,4 @@
-import { Prisma, Org } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { OrgsRepository } from '../orgs-repository'
 import { prisma } from '@/database/prisma'
 

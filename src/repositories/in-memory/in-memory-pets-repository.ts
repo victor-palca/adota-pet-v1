@@ -1,9 +1,8 @@
-import { Prisma, Pet } from '@prisma/client'
+import { Prisma, Pet, GenderType } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
 import { randomUUID } from 'node:crypto'
 import { ResourceNotFoundError } from '@/services/erros/resource-not-found'
 import { InMemoryOrgsRepository } from './in-memory-orgs-repository'
-import { AnimalSex } from '@/@types/animal-sex'
 import { AnimalType } from '@/@types/animal-type'
 
 export class InMemoryPetsRepository implements PetsRepository {
@@ -14,7 +13,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     city: string,
     page: number,
     age?: number,
-    animalSex?: AnimalSex,
+    gender?: GenderType,
     type?: AnimalType,
     isFixed?: boolean,
   ): Promise<Pet[]> {
@@ -28,7 +27,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     const pets = petsFiltered.filter(
       (pet) =>
         (age === undefined || pet.age === age) &&
-        (animalSex === undefined || pet.animalSex === animalSex) &&
+        (gender === undefined || pet.gender === gender) &&
         (type === undefined || pet.type === type) &&
         (isFixed === undefined || pet.isFixed === isFixed),
     )
@@ -53,7 +52,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       type: data.type,
       name: data.name ? data.name : null,
       age: data.age ? data.age : 0,
-      animalSex: data.animalSex,
+      gender: data.gender,
       description: data.description ? data.description : null,
       isFixed: data.isFixed ? data.isFixed : false,
       org_id: data.org_id,

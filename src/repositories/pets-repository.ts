@@ -1,6 +1,5 @@
-import { AnimalSex } from '@/@types/animal-sex'
 import { AnimalType } from '@/@types/animal-type'
-import { Pet, Prisma } from '@prisma/client'
+import { GenderType, Pet, Prisma } from '@prisma/client'
 
 export interface PetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
@@ -10,7 +9,7 @@ export interface PetsRepository {
     city: string,
     page: number,
     age?: number,
-    animalSex?: AnimalSex,
+    gender?: GenderType,
     type?: AnimalType,
     isFixed?: boolean,
   ): Promise<Pet[]>
