@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
-    "test": "vitest run --dir src/services",
-    "test:watch": "vitest src/services"
+    "test": "vitest run --project unit",
+    "test:watch": "vitest src/services",
+    "test:e2e": "vitest run --project e2e"
   },
   "author": "",
   "license": "ISC",
@@ -23,8 +24,10 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^22.14.1",
+    "@types/supertest": "^6.0.3",
     "eslint": "^9.25.0",
     "prisma": "^6.6.0",
+    "supertest": "^7.1.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3",
     "vite-tsconfig-paths": "^5.1.4",
